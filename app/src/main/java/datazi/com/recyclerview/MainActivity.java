@@ -6,7 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //SPINNER >>>>>>>>>>>>>>
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> spinnerAdapter = ArrayAdapter.createFromResource(this,
+                R.array.location, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        spinner.setAdapter(spinnerAdapter);
 
         //recyclerv view
         productList=new ArrayList<>();
@@ -88,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Product> filteredList=new ArrayList<>();
 
         for(Product item :productList){
-            if(item.getTitle().toLowerCase().contains(text.toLowerCase())){
+            if(item.getTitle().toLowerCase().contains(text.toLowerCase()) ){
                 filteredList.add(item);
             }
         }
@@ -96,4 +108,6 @@ public class MainActivity extends AppCompatActivity {
         adapter.filterList(filteredList);
 
     }
+
+
 }
